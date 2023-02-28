@@ -1,0 +1,6 @@
+export * from './Navbar'
+export * from './ContainerComp'
+export * from './ScrollIcon'
+export * from './Carousel'
+export * from './CustomerItem'
+export * from './PlanItem'
