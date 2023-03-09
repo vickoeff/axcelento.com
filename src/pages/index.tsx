@@ -1,11 +1,14 @@
 import {useMemo} from 'react'
 import Head from 'next/head'
 import { Fraunces } from '@next/font/google'
-import { Box, Button, HStack, Heading, Text } from '@chakra-ui/react'
+import { Box, Button, HStack, Heading, Text, Icon, Link } from '@chakra-ui/react'
 import { Navbar, ContainerComp, ScrollIcon, Carousel, CustomerItem, PlanItem } from '@/components'
 import Image from 'next/image'
+import bannerBg from '../../public/banner-bg.png'
 import bannerImage from '../../public/banner.png'
 import aboutImage from '../../public/about.png'
+import footerBg from '../../public/footer.png'
+import {FaWhatsapp, FaInstagram, FaEnvelope, FaCopyright} from 'react-icons/fa'
 
 const fraunces = Fraunces({ subsets: ['latin'], weight: '600' })
 
@@ -47,7 +50,7 @@ export default function Home() {
       },
     ]
 
-    return plans.map(({name, price, features, isPriority}) => <PlanItem name={name} price={price} features={features} isPriority={isPriority} />);
+    return plans.map(({name, price, features, isPriority}, idx) => <PlanItem name={name} price={price} features={features} isPriority={isPriority} key={idx}/>);
   }, []);
 
   const clientItems = useMemo(() => {
@@ -70,7 +73,7 @@ export default function Home() {
       },
     ]
 
-    return customers.map(({name, testimoni}) => <CustomerItem avatar={`https://bit.ly/${name.replace(' ', '-')}`} name={name} testimoni={testimoni}/>);
+    return customers.map(({name, testimoni}, idx) => <CustomerItem avatar={`https://bit.ly/${name.replace(' ', '-')}`} name={name} testimoni={testimoni} key={idx}/>);
   }, []);
 
   return (
@@ -81,12 +84,15 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Navbar/>
       <main>
-        <Navbar/>
         {/** Banner Start */}
-        <Box py="20">
+        <Box py="20" minH="100vh">
+          <Box pos="absolute" left="0" top="0" zIndex="0">
+            <Image src={bannerBg} alt="illustration banner" />
+          </Box>
           <ContainerComp>
-            <HStack>
+            <HStack pos="relative" zIndex="1" pt="24">
               <Box minW="50%" >
                 <HStack alignItems="end">
                   <Heading as='h1' fontSize="5xl" className={fraunces.className} mb="6">
@@ -104,6 +110,7 @@ export default function Home() {
                 <Image src={bannerImage} alt="illustration banner" />
               </Box>
             </HStack>
+            <Box minH="150px"></Box>
             <ScrollIcon/>
           </ContainerComp>
         </Box>
@@ -130,9 +137,9 @@ export default function Home() {
         {/** About End */}
         
         {/** Portfolio Start */}
-        <Box py="20" backgroundColor="dark">
+        <Box py="20" my="20">
           <ContainerComp>
-              <Heading as='h2' fontSize="3xl" fontWeight="semibold" mb="5" color="white" textAlign="center" className={fraunces.className}>
+              <Heading as='h2' fontSize="3xl" fontWeight="semibold" mb="5" textAlign="center" className={fraunces.className}>
                 Projects We've Worked On
               </Heading>
           </ContainerComp>
@@ -156,7 +163,7 @@ export default function Home() {
         {/** Packages End */}
 
         {/** Clients Start */}
-        <Box py="20">
+        <Box pos="relative" py="20" zIndex="1">
           <ContainerComp>
               <Heading as='h2' fontSize="3xl" fontWeight="semibold"textAlign="center" className={fraunces.className}>
                 Our Customers
@@ -169,6 +176,47 @@ export default function Home() {
         </Box>
         {/** Clients End */}
       </main>
+      <footer>
+        <Box py="6" mt="56">
+          <ContainerComp>
+              <Box pos="absolute" left="0" bottom="0" zIndex="0">
+                <Image src={footerBg} alt="illustration banner" />
+              </Box>
+              <HStack mt="6"  gap="1" pos="relative" zIndex="1" justifyContent="space-between">
+                <Box  w="250px" p="6" borderRadius="2xl" color="white" >
+                  <Heading as="h3" fontSize="xl" fontWeight="semibold">
+                    Contact Us
+                  </Heading>
+                  <HStack mt="4">
+                    <Icon as={FaWhatsapp} />
+                    <Link href='https://chakra-ui.com' isExternal>
+                      {' '}+62 8213 4601 303
+                    </Link>
+                  </HStack>
+                  <Text fontWeight="semibold">
+                        Axcelento CS
+                  </Text>
+                </Box>
+                <Box>
+                  <Heading as="h3" fontSize="xl" fontWeight="semibold" color="white">
+                    Our Social Media
+                  </Heading>
+                  <HStack mt="4"  gap="1" justifyContent="flex-end">
+                    <Link href='https://chakra-ui.com' isExternal>
+                      <Icon as={FaInstagram} color="white" w="6" h="6" />
+                    </Link>
+                    <Link href='https://chakra-ui.com' isExternal>
+                      <Icon as={FaEnvelope} color="white" w="6" h="6" />
+                    </Link>
+                  </HStack>
+                </Box>
+              </HStack>
+              <Text fontSize="xs" pos="relative" zIndex="1" color="white" textAlign="center">
+                <Icon as={FaCopyright}/> Copytighted Since 2023 Axcelento
+              </Text>
+          </ContainerComp>
+        </Box>
+      </footer>
     </>
   )
 }

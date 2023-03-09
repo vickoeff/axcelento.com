@@ -9,7 +9,7 @@ const { Button } = chakraTheme.components
 const theme = extendBaseTheme({
   colors: {
     primary: '#3094b2',
-    dark: '#0f3757',
+    dark: '#003368',
   },
   components: {
     Button: {

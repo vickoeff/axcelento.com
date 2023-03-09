@@ -31,15 +31,12 @@ const menu = [
 
 export const Navbar = () => {
   return (
-    <Box>
+    <Box pos="sticky" top="0" zIndex="1024" p="6">
       <ContainerComp>
-        <Flex>
-          <Box p={4} pl="0">
-            <Image src={Logo} alt="logo axcelento" width="24"  />
-          </Box>
+        <Flex justifyContent="flex-end">
           {
             menu.map((nav) => 
-            <Button variant='navbar-link' className={raleway.className}>{nav.text}</Button>
+            <Button variant='navbar-link' color="white" className={raleway.className}>{nav.text}</Button>
             )
           }
         </Flex>
